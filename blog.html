@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    body { font-family: 'Fira Code', monospace; background: #0d1117; color: #c9d1d9; margin: 0; padding: 2rem; }
+    .nav { margin-bottom: 2rem; }
+    .nav a { margin-right: 1rem; text-decoration: none; color: #58a6ff; }
+    .nav a:hover { color: #00ffcc; }
+    h1, h2, h3 { color: #00ffcc; }
+    pre { background: #161b22; padding: 1rem; border-radius: 6px; overflow-x: auto; }
+    code { color: #79c0ff; }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <a href="index.html">🏠 Home</a>
+    <a href="blog-list.html">🔙 Back to Blogs</a>
+  </div>
+
+  <div id="content">Loading...</div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const file = params.get("file");
+
+    if (file) {
+      fetch("blogs/" + file)
+        .then(response => response.text())
+        .then(md => {
+          document.getElementById("content").innerHTML = marked.parse(md);
+        });
+    } else {
+      document.getElementById("content").innerHTML = "<p>No blog selected.</p>";
+    }
+  </script>
+</body>
+</html>
+

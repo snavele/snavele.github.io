@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blogs | Generative AI Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Fira Code', monospace; background: #0d1117; color: #c9d1d9; margin: 0; padding: 2rem; }
+    h1 { text-align: center; color: #00ffcc; }
+    ul { list-style: none; padding: 0; }
+    li { margin: 1rem 0; background: #161b22; padding: 1rem; border-radius: 8px; }
+    a { text-decoration: none; color: #58a6ff; font-weight: 600; }
+    a:hover { color: #00ffcc; }
+    .date { color: #8b949e; font-size: 0.9rem; }
+    .nav { margin-bottom: 2rem; }
+    .nav a { margin-right: 1rem; text-decoration: none; color: #58a6ff; }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <a href="index.html">🏠 Home</a>
+  </div>
+
+  <h1>📝 My Blogs</h1>
+  <ul id="blog-list"></ul>
+
+  <script>
+    async function loadBlogs() {
+      try {
+        const response = await fetch("blogs.json");  // Ensure correct path here
+        if (!response.ok) throw new Error("Could not load blogs.json");
+        const blogs = await response.json();
+        const list = document.getElementById("blog-list");
+
+        blogs.forEach(blog => {
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <a href="blog.html?file=${blog.file}">${blog.title}</a>
+            <div class="date">${blog.date}</div>
+          `;
+          list.appendChild(li);
+        });
+      } catch (err) {
+        console.error(err);
+        document.getElementById("blog-list").innerHTML = "<li>Failed to load blogs.</li>";
+      }
+    }
+    loadBlogs();
+  </script>
+</body>
+</html>
+
