@@ -1,0 +1,52 @@
+{
+    "timeline": [
+        {
+            "year": 2000,
+            "description": "Born on 3rd May",
+            "icon": "🎂",
+            "category": "personal"
+        },
+        {
+            "year": 2016,
+            "description": "Completed 10th from DAV Public School Nerul",
+            "icon": "🎓",
+            "category": "education"
+        },
+        {
+            "year": 2018,
+            "description": "Completed 12th from Harmony Public School Nerul",
+            "icon": "📚",
+            "category": "education"
+        },
+        {
+            "year": 2018,
+            "description": "Started College, MIT ADT University, Pune with Major in Information Technology",
+            "icon": "🏛️",
+            "category": "education"
+        },
+        {
+            "year": 2022,
+            "description": "Started internship with Collabera Inc",
+            "icon": "💼",
+            "category": "career"
+        },
+        {
+            "year": 2023,
+            "description": "Started Full time with Collabera Digital as Associate Data Engineer",
+            "icon": "🚀",
+            "category": "career"
+        },
+        {
+            "year": 2024,
+            "description": "Promoted as Data Engineer",
+            "icon": "📊",
+            "category": "career"
+        },
+        {
+            "year": 2025,
+            "description": "Promoted as Senior Generative AI Developer",
+            "icon": "🤖",
+            "category": "career"
+        }
+    ]
+}

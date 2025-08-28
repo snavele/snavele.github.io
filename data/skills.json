@@ -1,0 +1,40 @@
+{
+    "skills": [
+        {
+            "type": "Programming",
+            "name": "Python",
+            "level": "advanced",
+            "percentage": 85
+        },
+        {
+            "type": "AI/ML",
+            "name": "Generative AI",
+            "level": "advanced",
+            "percentage": 90
+        },
+        {
+            "type": "Platform",
+            "name": "Databricks",
+            "level": "advanced",
+            "percentage": 80
+        },
+        {
+            "type": "Cloud",
+            "name": "Cloud Architecture",
+            "level": "intermediate",
+            "percentage": 70
+        },
+        {
+            "type": "Architecture",
+            "name": "Solution Architecture",
+            "level": "intermediate",
+            "percentage": 75
+        },
+        {
+            "type": "Database",
+            "name": "SQL",
+            "level": "advanced", 
+            "percentage": 80
+        }
+    ]
+}

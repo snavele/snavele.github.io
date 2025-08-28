@@ -20,7 +20,6 @@
 
         .header {
             text-align: center;
-            margin-bottom: 60px;
         }
 
         .name {
@@ -65,10 +64,312 @@
             animation: typewriter-cycle 12s steps(50, end) infinite, blink 0.7s step-end infinite;
         }
 
+
         .about-section {
             max-width: 800px;
             text-align: center;
             margin: 40px 0;
+        }
+
+        .skills-section {
+            max-width: 1000px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .timeline-section {
+            max-width: 1200px;
+            margin: 80px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .timeline-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 50px;
+            color: white;
+        }
+
+        .timeline-container {
+            position: relative;
+            padding: 40px 0;
+            overflow-x: auto;
+            overflow-y: visible;
+        }
+
+        .timeline {
+            position: relative;
+            display: flex;
+            align-items: center;
+            min-width: 800px;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00ff88 0%, #00aa44 100%);
+            border-radius: 2px;
+            animation: timeline-draw 3s ease-in-out forwards;
+            transform-origin: left;
+            transform: scaleX(0);
+        }
+
+        @keyframes timeline-draw {
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .timeline-item {
+            position: relative;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            animation: timeline-item-appear 0.8s ease-in-out forwards;
+        }
+
+        .timeline-item:nth-child(2) { animation-delay: 0.5s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.8s; }
+        .timeline-item:nth-child(4) { animation-delay: 1.1s; }
+        .timeline-item:nth-child(5) { animation-delay: 1.4s; }
+        .timeline-item:nth-child(6) { animation-delay: 1.7s; }
+        .timeline-item:nth-child(7) { animation-delay: 2.0s; }
+        .timeline-item:nth-child(8) { animation-delay: 2.3s; }
+        .timeline-item:nth-child(9) { animation-delay: 2.6s; }
+
+        @keyframes timeline-item-appear {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-content {
+            position: absolute;
+            top: -140px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2a2a2a;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            min-width: 220px;
+            max-width: 280px;
+            border: 1px solid #404040;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(-20px) scale(0.9);
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 20;
+        }
+
+        .timeline-content.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0) scale(1);
+        }
+
+        .timeline-content:nth-child(even) {
+            top: 60px;
+        }
+
+        .timeline-content:nth-child(even).active {
+            transform: translateX(-50%) translateY(0) scale(1);
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #2a2a2a;
+        }
+
+        .timeline-content:nth-child(even)::before {
+            top: -8px;
+            bottom: auto;
+            border-top: none;
+            border-bottom: 8px solid #2a2a2a;
+        }
+
+        .timeline-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .timeline-icon:hover {
+            transform: scale(1.2);
+        }
+
+        .timeline-dot {
+            width: 50px;
+            height: 50px;
+            background-color: #2a2a2a;
+            border: 3px solid #00ff88;
+            border-radius: 50%;
+            z-index: 15;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .timeline-dot:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            border-color: #00ff88;
+        }
+
+        .timeline-dot.active {
+            background-color: #00ff88;
+            transform: scale(1.15);
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.5);
+        }
+
+        .timeline-dot.active .timeline-icon {
+            animation: none;
+        }
+
+        .timeline-year-display {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #00ff88;
+            margin-top: 10px;
+            line-height: 1;
+        }
+
+        .timeline-dot.active .timeline-year-display {
+            color: #1a1a1a;
+        }
+
+        .timeline-year {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #00ff88;
+            margin-bottom: 8px;
+        }
+
+        .timeline-description {
+            font-size: 1rem;
+            color: #ccc;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        @keyframes timeline-icon-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        .timeline-icon {
+            animation: timeline-icon-bounce 3s ease-in-out infinite;
+        }
+
+        .category-personal { border-left: 4px solid #ff6b6b; }
+        .category-education { border-left: 4px solid #4ecdc4; }
+        .category-career { border-left: 4px solid #45b7d1; }
+
+        .skills-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+            justify-items: center;
+        }
+
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .circular-progress {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+
+        .progress-ring {
+            width: 120px;
+            height: 120px;
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-background {
+            fill: none;
+            stroke: #333;
+            stroke-width: 8;
+        }
+
+        .progress-ring-fill {
+            fill: none;
+            stroke: #00ff88;
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 314;
+            stroke-dashoffset: 314;
+            transition: stroke-dashoffset 2s ease-in-out;
+            animation: progress-animation 3s ease-in-out forwards;
+        }
+
+        @keyframes progress-animation {
+            from {
+                stroke-dashoffset: 314;
+            }
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .skill-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .skill-level {
+            font-size: 0.9rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .about-title {
@@ -117,6 +418,12 @@
             font-size: 0.9rem;
         }
 
+        .error-message {
+            color: #ff6b6b;
+            font-style: italic;
+            margin: 20px 0;
+        }
+
         @media (max-width: 768px) {
             .name {
                 font-size: 2.5rem;
@@ -141,22 +448,9 @@
 
     <div class="about-section">
         <h2 class="about-title">About Me</h2>
-        
-        <p class="about-text">
-            Senior Generative AI Engineer with expertise in building scalable, enterprise-grade 
-            AI solutions that drive real business impact.
-        </p>
-        
-        <p class="about-text">
-            Led the development of Agentic AI for MSRAG at Ascendion, reducing data processing 
-            time by 80%. Previously optimized LLMs at Collabera Digital.
-        </p>
-        
-        <p class="about-text">
-            Skilled in Generative AI, Databricks, and Solution Architecture. Passionate about 
-            solving real-world problems through AI innovation.
-        </p>
-
+        <div id="about-content">
+            <div class="error-message">Loading content...</div>
+        </div>
         <div class="buttons">
             <a href="resume.pdf" class="btn">
                 📄 Download Resume
@@ -167,8 +461,170 @@
         </div>
     </div>
 
+    <div class="timeline-section">
+        <h2 class="timeline-title">My Journey</h2>
+        <div class="timeline-container">
+            <div class="timeline" id="timeline-container">
+                <div class="timeline-line"></div>
+                <div class="error-message">Loading timeline...</div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="skills-section">
+        <h2 class="skills-title">Technical Skills</h2>
+        <div class="skills-grid" id="skills-container">
+            <div class="error-message">Loading skills...</div>
+        </div>
+    </div>
+
+    
     <div class="footer">
         © 2025 snavele | Built with Github Pages
     </div>
+
+    <script>
+        function loadAboutContent(aboutData) {
+            const aboutContainer = document.getElementById('about-content');
+            aboutContainer.innerHTML = '';
+            
+            aboutData.paragraphs.forEach(paragraph => {
+                const p = document.createElement('p');
+                p.className = 'about-text';
+                p.textContent = paragraph;
+                aboutContainer.appendChild(p);
+            });
+        }
+
+        function createSkillItem(skill) {
+            const skillItem = document.createElement('div');
+            skillItem.className = 'skill-item';
+            skillItem.setAttribute('data-level', skill.level);
+
+            const strokeOffset = 314 - (314 * skill.percentage / 100);
+
+            skillItem.innerHTML = `
+                <div class="circular-progress">
+                    <svg class="progress-ring">
+                        <circle class="progress-ring-background" cx="60" cy="60" r="50"></circle>
+                        <circle class="progress-ring-fill" cx="60" cy="60" r="50" style="stroke-dashoffset: ${strokeOffset};"></circle>
+                    </svg>
+                    <div class="progress-text">${skill.percentage}%</div>
+                </div>
+                <div class="skill-name">${skill.name}</div>
+                <div class="skill-level">${skill.level}</div>
+            `;
+
+            return skillItem;
+        }
+
+        function createTimelineItem(item, index) {
+            const timelineItem = document.createElement('div');
+            timelineItem.className = 'timeline-item';
+            
+            timelineItem.innerHTML = `
+                <div class="timeline-content category-${item.category}">
+                    <div class="timeline-year">${item.year}</div>
+                    <div class="timeline-description">${item.description}</div>
+                </div>
+                <div class="timeline-dot" onclick="toggleTimelineCard(${index})">
+                    <div class="timeline-icon">${item.icon}</div>
+                    <div class="timeline-year-display">${item.year}</div>
+                </div>
+            `;
+            
+            return timelineItem;
+        }
+
+        function toggleTimelineCard(index) {
+            const allItems = document.querySelectorAll('.timeline-item');
+            const allContents = document.querySelectorAll('.timeline-content');
+            const allDots = document.querySelectorAll('.timeline-dot');
+            
+            // Hide all cards and remove active state
+            allContents.forEach(content => content.classList.remove('active'));
+            allDots.forEach(dot => dot.classList.remove('active'));
+            
+            // Show clicked card and add active state
+            const clickedContent = allItems[index].querySelector('.timeline-content');
+            const clickedDot = allItems[index].querySelector('.timeline-dot');
+            
+            clickedContent.classList.add('active');
+            clickedDot.classList.add('active');
+        }
+
+        function loadTimeline(timelineData) {
+            const timelineContainer = document.getElementById('timeline-container');
+            timelineContainer.innerHTML = '<div class="timeline-line"></div>';
+            
+            timelineData.timeline.forEach((item, index) => {
+                const timelineItem = createTimelineItem(item, index);
+                timelineContainer.appendChild(timelineItem);
+            });
+        }
+
+        function loadSkills(skillsData) {
+            const skillsContainer = document.getElementById('skills-container');
+            skillsContainer.innerHTML = '';
+            
+            skillsData.skills.forEach(skill => {
+                const skillItem = createSkillItem(skill);
+                skillsContainer.appendChild(skillItem);
+            });
+        }
+
+        async function loadData() {
+            try {
+                const aboutResponse = await fetch('data/about.json');
+                if (!aboutResponse.ok) {
+                    throw new Error(`Failed to load about.json: ${aboutResponse.status}`);
+                }
+                const aboutData = await aboutResponse.json();
+                
+                const skillsResponse = await fetch('data/skills.json');
+                if (!skillsResponse.ok) {
+                    throw new Error(`Failed to load skills.json: ${skillsResponse.status}`);
+                }
+                const skillsData = await skillsResponse.json();
+                
+                const timelineResponse = await fetch('data/timeline.json');
+                if (!timelineResponse.ok) {
+                    throw new Error(`Failed to load timeline.json: ${timelineResponse.status}`);
+                }
+                const timelineData = await timelineResponse.json();
+                
+                loadAboutContent(aboutData);
+                loadSkills(skillsData);
+                loadTimeline(timelineData);
+                
+            } catch (error) {
+                console.error('Error loading data:', error);
+                
+                document.getElementById('about-content').innerHTML = `
+                    <div class="error-message">
+                        Unable to load content. Please ensure data/about.json exists.
+                    </div>
+                `;
+                
+                document.getElementById('skills-container').innerHTML = `
+                    <div class="error-message">
+                        Unable to load skills. Please ensure data/skills.json exists.
+                    </div>
+                `;
+                
+                document.getElementById('timeline-container').innerHTML = `
+                    <div class="error-message">
+                        Unable to load timeline. Please ensure data/timeline.json exists.
+                    </div>
+                `;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+        });
+    </script>
 </body>
 </html>
