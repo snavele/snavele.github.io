@@ -1,13 +1,3 @@
 [
-  {
-    "file": "blog1.md",
-    "title": "My First Blog Post",
-    "date": "2025-08-01"
-  },
-  {
-    "file": "blog2.md",
-    "title": "Exploring LLMOps",
-    "date": "2025-08-15"
-  }
+  {"file": "blog1.md", "title": "What is Generative AI and How Can It Help Us?", "date": "2025-08-28"}
 ]
-
