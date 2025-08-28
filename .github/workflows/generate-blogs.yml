@@ -1,4 +1,3 @@
-
 name: Generate Blogs JSON
 
 on:
@@ -6,11 +5,18 @@ on:
     paths:
       - "blogs/*.md"
 
+permissions:
+  contents: write   # 👈 give write access to GITHUB_TOKEN
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          persist-credentials: false   # 👈 disable default credentials
+          fetch-depth: 0               # needed for git log
+
       - name: Generate blogs.json
         run: |
           echo "[" > blogs.json
@@ -26,11 +32,11 @@ jobs:
             echo "  {\"file\": \"$(basename $file)\", \"title\": \"$title\", \"date\": \"$date\"}" >> blogs.json
           done
           echo "]" >> blogs.json
+
       - name: Commit and push blogs.json
         run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add blogs.json
           git commit -m "Update blogs.json" || echo "No changes"
-          git push
-
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:${{ github.ref }}
