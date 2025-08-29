@@ -1,0 +1,25 @@
+{
+  "projects": [
+    {
+      "file": "QueryGenius.md",
+      "title": "Test-to-SQL",
+      "tech_stack": ["Generative AI", "Python", "AWS Bedrock", "AWS Athena", "AWS S3"],
+      "date": "2024-09-01",
+      "end_date": "2025-06-01"
+    },
+    {
+      "file": "finaclemig.md",
+      "title": "Finacle-Migration",
+      "tech_stack": ["Apache Spark", "Python", "SQL Server", "Finacle", "Hadoop", "AWS"],
+      "date": "2023-08-15",
+      "end_date": "2024-09-01"
+    },
+    {
+      "file": "Datamarketplace.md",
+      "title": "Data-Market-Place",
+      "tech_stack": ["Generative AI", "Python", "DataBrics","AWS Bedrock", "AWS lambda", "AWS S3"],
+      "date": "2025-02-01",
+      "end_date": "2026-01-15"
+    }
+  ]
+}

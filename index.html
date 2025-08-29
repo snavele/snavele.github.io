@@ -57,15 +57,163 @@
             margin: 40px 0;
         }
 
+        .projects-section {
+            max-width: 1200px;
+            margin: 60px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .projects-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .projects-container {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        .projects-scroll {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 20px;
+            scrollbar-width: thin;
+            scrollbar-color: #00ff88 #2a2a2a;
+        }
+
+        .projects-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .projects-scroll::-webkit-scrollbar-track {
+            background: #2a2a2a;
+            border-radius: 4px;
+        }
+
+        .projects-scroll::-webkit-scrollbar-thumb {
+            background: #00ff88;
+            border-radius: 4px;
+        }
+
+        .project-card {
+            min-width: 300px;
+            max-width: 350px;
+            background-color: #2a2a2a;
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #404040;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: project-fade-in 0.8s ease-in-out forwards;
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:nth-child(4) { animation-delay: 0.4s; }
+        .project-card:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes project-fade-in {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+            border-color: #00ff88;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #00ffcc;
+            margin-bottom: 15px;
+        }
+
+        .project-date {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tech-tag {
+            background-color: #00aa44;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-description {
+            color: #ccc;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            background-color: #00aa44;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        .btn-small:hover {
+            background-color: #00cc55;
+        }
+
+        .btn-secondary {
+            background-color: #404040;
+        }
+
+        .btn-secondary:hover {
+            background-color: #555;
+        }
+
+        .view-all-projects {
+            margin-top: 30px;
+        }
+
         .skills-section {
             max-width: 1000px;
-            margin: 60px 0;
+            /* margin: 60px 0; */
             text-align: center;
         }
 
         .timeline-section {
             max-width: 1200px;
-            margin: 80px 0;
+            /* margin: 80px 0; */
             text-align: center;
             width: 100%;
         }
@@ -302,7 +450,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
-            margin-top: 30px;
+            /* margin-top: 30px; */
             justify-items: center;
         }
 
@@ -436,6 +584,20 @@
                 flex-direction: column;
                 align-items: center;
             }
+
+            .project-card {
+                min-width: 280px;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -456,6 +618,20 @@
             </a>
             <a href="blog-list.html" class="btn">
                 📖 Read Blogs
+            </a>
+        </div>
+    </div>
+
+    <div class="projects-section">
+        <h2 class="projects-title">Featured Projects</h2>
+        <div class="projects-container">
+            <div class="projects-scroll" id="projects-container">
+                <div class="error-message">Loading projects...</div>
+            </div>
+        </div>
+        <div class="view-all-projects">
+            <a href="projects-list.html" class="btn">
+                🚀 View All Projects
             </a>
         </div>
     </div>
@@ -567,6 +743,68 @@
                 p.className = 'about-text';
                 p.textContent = paragraph;
                 aboutContainer.appendChild(p);
+            });
+        }
+
+        function formatDate(dateStr, endDateStr = null) {
+            const date = new Date(dateStr);
+            const options = { year: 'numeric', month: 'short' };
+            
+            if (endDateStr) {
+                const endDate = new Date(endDateStr);
+                return `${date.toLocaleDateString('en-US', options)} - ${endDate.toLocaleDateString('en-US', options)}`;
+            }
+            
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        function createProjectCard(project) {
+            const projectCard = document.createElement('div');
+            projectCard.className = 'project-card';
+            projectCard.onclick = () => window.location.href = `project-detail.html?project=${encodeURIComponent(project.file.replace('.md', ''))}`;
+
+            const techTags = project.tech_stack.map(tech => 
+                `<span class="tech-tag">${tech}</span>`
+            ).join('');
+
+            const dateDisplay = formatDate(project.date, project.end_date);
+
+            projectCard.innerHTML = `
+                <div class="project-title">${project.title}</div>
+                <div class="project-date">${dateDisplay}</div>
+                <div class="project-tech">${techTags}</div>
+                <div class="project-description">${project.description || 'Click to learn more about this project'}</div>
+                <div class="project-actions">
+                    <a href="project-detail.html?title=${project.title}&file=${project.file}" class="btn-small">
+                        View Details
+                    </a>
+                </div>
+            `;
+
+            return projectCard;
+        }
+
+        function loadProjects(projectsData) {
+            const projectsContainer = document.getElementById('projects-container');
+            projectsContainer.innerHTML = '';
+            
+            // Check if projectsData and projects array exist
+            if (!projectsData || !projectsData.projects || !Array.isArray(projectsData.projects)) {
+                projectsContainer.innerHTML = '<div class="error-message">No projects data available</div>';
+                return;
+            }
+            
+            // Show only first 5 projects on main page
+            const featuredProjects = projectsData.projects.slice(0, 5);
+            
+            if (featuredProjects.length === 0) {
+                projectsContainer.innerHTML = '<div class="error-message">No projects found</div>';
+                return;
+            }
+            
+            featuredProjects.forEach(project => {
+                const projectCard = createProjectCard(project);
+                projectsContainer.appendChild(projectCard);
             });
         }
 
@@ -682,10 +920,17 @@
                     throw new Error(`Failed to load timeline.json: ${timelineResponse.status}`);
                 }
                 const timelineData = await timelineResponse.json();
+
+                const projectsResponse = await fetch('data/projects.json');
+                if (!projectsResponse.ok) {
+                    throw new Error(`Failed to load projects.json: ${projectsResponse.status}`);
+                }
+                const projectsData = await projectsResponse.json();
                 
                 loadAboutContent(aboutData);
                 loadSkills(skillsData);
                 loadTimeline(timelineData);
+                loadProjects(projectsData);
                 
             } catch (error) {
                 console.error('Error loading data:', error);
@@ -709,6 +954,12 @@
                 document.getElementById('timeline-container').innerHTML = `
                     <div class="error-message">
                         Unable to load timeline. Please ensure data/timeline.json exists.
+                    </div>
+                `;
+
+                document.getElementById('projects-container').innerHTML = `
+                    <div class="error-message">
+                        Unable to load projects. Please ensure data/projects.json exists.
                     </div>
                 `;
             }
