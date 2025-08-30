@@ -29,7 +29,7 @@ Generative AI enhances catalog search:
 ✅ Output: A curated list of **relevant data assets**.  
 ✅ Benefit: Easier discovery without technical knowledge.  
 
-<img src="projects/Data-Market-place/search_flow.png" alt="Responsive" style="max-width:50%; height:auto;">
+<img src="projects/Data-Market-Place/search_flow.png" alt="Responsive" style="max-width:50%; height:auto;">
 
 
 ---
@@ -39,7 +39,7 @@ Beyond search, a **chatbot copilot** is introduced for analysis and guidance.
 
 Various agents used by the copilot: 
 
-<img src="projects/Data-Market-place/agents.png" alt="Responsive" style="max-width:50%; height:auto;">
+<img src="projects/Data-Market-Place/agents.png" alt="Responsive" style="max-width:50%; height:auto;">
 
 <br><br>
 <hr style="border: 0; height: 1px; background: #ddd; opacity: 0.5;" />
@@ -67,7 +67,7 @@ Various agents used by the copilot:
 ✅ Output: **Summarized results + graphs**, streamed to the user.  
 ✅ Benefit: A true **copilot experience**, where users get guided insights instead of static lists.  
 
-<img src="projects/Data-Market-place/copilot_flow.png" alt="Responsive" style="max-width:100%; height:auto;">
+<img src="projects/Data-Market-Place/copilot_flow.png" alt="Responsive" style="max-width:100%; height:auto;">
 
 ---
 
