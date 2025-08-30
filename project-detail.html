@@ -7,6 +7,41 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="stylesheet" href="style/project-detail.css">
+  <style>
+    .tts-container {
+      text-align: left;
+      margin: 20px 0;
+    }
+
+    .tts-button {
+      background: none;
+      border: 2px solid #00ffcc;
+      border-radius: 25px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      transition: all 0.2s ease;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .tts-button:hover {
+      background: rgba(0, 255, 204, 0.1);
+      transform: scale(1.02);
+    }
+
+    .speaker-icon {
+      color: #00ffcc;
+      font-size: 16px;
+    }
+
+    #buttonText {
+      color: #00ffcc;
+    }
+  </style>
 </head>
 <body>
   <div class="header">
@@ -17,7 +52,6 @@
           <span>Home</span>
         </a>
         <a href="projects-list.html" class="nav-item">
-          
           <span>All projects</span>
         </a>
       </nav>
@@ -25,6 +59,13 @@
   </div>
 
   <div class="container">
+    <!-- Text-to-Speech just above project content -->
+    <div class="tts-container" id="ttsContainer" style="display: none;">
+      <button id="ttsButton" class="tts-button">
+        <span class="speaker-icon" id="speakerIcon">🔊</span>
+        <span id="buttonText">Listen to Project</span>
+      </button>
+    </div>
     
     <div class="content" id="content">
       <div class="loading">
@@ -39,5 +80,165 @@
   </button>
 
   <script src="script/project-detail.js"></script>
+  <script>
+    class ProjectTTS {
+      constructor() {
+        this.synthesis = window.speechSynthesis;
+        this.utterance = null;
+        this.isPlaying = false;
+        this.isPaused = false;
+        this.textToRead = '';
+        
+        this.button = document.getElementById('ttsButton');
+        this.icon = document.getElementById('speakerIcon');
+        this.buttonText = document.getElementById('buttonText');
+        this.container = document.getElementById('ttsContainer');
+        
+        this.init();
+      }
+      
+      init() {
+        this.button.addEventListener('click', () => this.toggleSpeech());
+        this.synthesis.cancel();
+      }
+      
+      extractTextFromContent() {
+        const content = document.getElementById('content');
+        const textElements = content.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, blockquote, .project-description, .tech-stack');
+        let text = '';
+        
+        textElements.forEach(el => {
+          if (el.offsetParent === null || el.closest('.nav, .header, .loading')) return;
+          
+          const elementText = el.textContent.trim();
+          if (elementText && !elementText.includes('Loading')) {
+            text += elementText + '. ';
+          }
+        });
+        
+        return text.trim();
+      }
+      
+      toggleSpeech() {
+        if (this.isPlaying) {
+          this.pauseSpeech();
+        } else if (this.isPaused) {
+          this.resumeSpeech();
+        } else {
+          this.startSpeech();
+        }
+      }
+      
+      startSpeech() {
+        if (!this.utterance) {
+          this.textToRead = this.extractTextFromContent();
+          
+          if (!this.textToRead) {
+            alert('No content available to read');
+            return;
+          }
+          
+          this.utterance = new SpeechSynthesisUtterance(this.textToRead);
+          this.utterance.rate = 1.0;
+          this.utterance.pitch = 1.0;
+          this.utterance.volume = 1.0;
+          
+          this.utterance.onstart = () => {
+            this.isPlaying = true;
+            this.isPaused = false;
+            this.icon.textContent = '⏸️';
+            this.buttonText.textContent = 'Pause Listening';
+            this.button.title = 'Pause Listening';
+          };
+          
+          this.utterance.onend = () => {
+            this.resetToStart();
+          };
+          
+          this.utterance.onerror = () => {
+            this.resetToStart();
+            alert('Error occurred during speech playback');
+          };
+        }
+        
+        this.synthesis.speak(this.utterance);
+      }
+      
+      pauseSpeech() {
+        this.synthesis.pause();
+        this.isPlaying = false;
+        this.isPaused = true;
+        this.icon.textContent = '▶️';
+        this.buttonText.textContent = 'Resume Listening';
+        this.button.title = 'Resume Listening';
+      }
+      
+      resumeSpeech() {
+        this.synthesis.resume();
+        this.isPlaying = true;
+        this.isPaused = false;
+        this.icon.textContent = '⏸️';
+        this.buttonText.textContent = 'Pause Listening';
+        this.button.title = 'Pause Listening';
+      }
+      
+      resetToStart() {
+        this.synthesis.cancel();
+        this.utterance = null;
+        this.isPlaying = false;
+        this.isPaused = false;
+        this.icon.textContent = '🔊';
+        this.buttonText.textContent = 'Listen to Project';
+        this.button.title = 'Listen to Project';
+      }
+      
+      showTTS() {
+        this.container.style.display = 'block';
+      }
+    }
+    
+    // Initialize TTS
+    let ttsInstance = null;
+    
+    function initializeTTS() {
+      if (!ttsInstance) {
+        ttsInstance = new ProjectTTS();
+      }
+      ttsInstance.showTTS();
+    }
+    
+    // Back to top functionality
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+    
+    // Show/hide back to top button
+    window.addEventListener('scroll', function() {
+      const backToTop = document.getElementById('backToTop');
+      if (window.pageYOffset > 300) {
+        backToTop.style.display = 'block';
+      } else {
+        backToTop.style.display = 'none';
+      }
+    });
+    
+    // Initialize TTS when content is available
+    document.addEventListener('DOMContentLoaded', function() {
+      // Wait for content to load
+      const checkContent = setInterval(() => {
+        const content = document.getElementById('content');
+        if (content && !content.querySelector('.loading')) {
+          initializeTTS();
+          clearInterval(checkContent);
+        }
+      }, 500);
+      
+      // Clear interval after 10 seconds
+      setTimeout(() => clearInterval(checkContent), 10000);
+    });
+  </script>
 </body>
 </html>
