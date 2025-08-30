@@ -42,6 +42,5 @@ Generative AI models, trained on vast amounts of SQL queries and natural languag
 
 Generative AI–powered **Text-to-SQL** bridges the gap between business and data teams, empowering everyone to unlock insights faster, without writing a single line of SQL.  
 
-<!-- ![alt text](./image.png) -->
-<!-- 
-<img src="./image.png" alt="Example" width="300" height="200"> -->
+
+<img src="projects/Test-To-SQL/streamingQueryGenius.png" alt="Responsive" style="max-width:100%; height:auto;">

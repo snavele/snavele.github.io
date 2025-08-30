@@ -2,7 +2,7 @@
   "projects": [
     {
       "file": "QueryGenius.md",
-      "title": "Test-to-SQL",
+      "title": "Text-to-SQL",
       "tech_stack": ["Generative AI", "Python", "AWS Bedrock", "AWS Athena", "AWS S3"],
       "date": "2024-09-01",
       "end_date": "2025-06-01"

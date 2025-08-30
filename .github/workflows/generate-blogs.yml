@@ -3,40 +3,41 @@ name: Generate Blogs JSON
 on:
   push:
     paths:
-      - "blogs/*.md"
-
-permissions:
-  contents: write   # 👈 give write access to GITHUB_TOKEN
+      - "blogs/**/*.md"
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          persist-credentials: false   # 👈 disable default credentials
-          fetch-depth: 0               # needed for git log
 
       - name: Generate blogs.json
         run: |
           echo "[" > blogs.json
           first=true
-          for file in blogs/*.md; do
-            title=$(head -n 1 "$file" | sed 's/^# //')
+
+          # Loop through each Markdown file inside blogs/*/
+          for file in blogs/*/*.md; do
+            folder=$(basename "$(dirname "$file")")   # folder name = blog title
+            filename=$(basename "$file")             # file name = blog.md
+            title="$folder"                          # use folder name as title
             date=$(git log -1 --format="%ad" --date=short -- "$file")
+
             if [ "$first" = true ]; then
               first=false
             else
               echo "," >> blogs.json
             fi
-            echo "  {\"file\": \"$(basename $file)\", \"title\": \"$title\", \"date\": \"$date\"}" >> blogs.json
+
+            echo "  {\"file\": \"$filename\", \"title\": \"$title\", \"date\": \"$date\"}" >> blogs.json
           done
+
           echo "]" >> blogs.json
 
       - name: Commit and push blogs.json
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
           git add blogs.json
           git commit -m "Update blogs.json" || echo "No changes"
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:${{ github.ref }}
